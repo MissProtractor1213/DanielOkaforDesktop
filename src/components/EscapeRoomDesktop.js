@@ -29,7 +29,7 @@ import useFullscreen from "../hooks/useFullscreen";
  * public/sim/files/company-policy.pdf
  */
 
-const WALLPAPER = "bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500";
+const WALLPAPER = "bg-gradient-to-br from-sky-500 via-indigo-200 to-pink-200";
 
 /* Simple Windows logo */
 function WindowsLogo({ className = "w-7 h-7" }) {
@@ -457,7 +457,7 @@ export default function EscapeRoomDesktop() {
                   e.currentTarget.style.display = "none";
                 }}
               />
-              <div className="text-xl font-bold text-gray-800 mt-2">User</div>
+              <div className="text-2xl font-bold text-gray-800 mt-2">Daniel Okafor</div>
               <div className="text-base text-gray-600">Sign in</div>
             </div>
 
