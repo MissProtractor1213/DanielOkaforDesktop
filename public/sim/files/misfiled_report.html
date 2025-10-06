@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Misfield_Safety_Report.pdf</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --ink:#111827; --muted:#6b7280; --line:#e5e7eb; --bg:#fff;
+    --brand:#0ea5e9; --ok:#10b981; --warn:#f59e0b; --bad:#ef4444;
+  }
+  html,body{ background:#f5f6f8; margin:0; font:13px/1.5 "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color:var(--ink); }
+  @page{ size:A4; margin:18mm; }
+  @media print{ .no-print{display:none!important} .page{box-shadow:none;margin:0} body{background:#fff; print-color-adjust:exact; -webkit-print-color-adjust:exact;} }
+
+  .page{ width:210mm; min-height:297mm; background:var(--bg); margin:12mm auto; box-shadow:0 6px 32px rgba(0,0,0,.08); position:relative; }
+  .header{ display:flex; justify-content:space-between; align-items:flex-start; padding:18px 22px; border-bottom:1px solid var(--line); }
+  .logo{ display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px; }
+  .mark{ width:28px; height:28px; border-radius:6px; background:linear-gradient(135deg, var(--brand), #60a5fa); }
+  .docmeta{ text-align:right; font-size:12px; color:var(--muted); }
+  .banner{ background:linear-gradient(90deg, #fecaca, #fee2e2); color:#991b1b; padding:8px 22px; border-bottom:1px solid #fecaca; display:flex; justify-content:space-between; align-items:center; }
+  .code{ font-weight:800; color:#b91c1c; border:1px solid #fecaca; background:#fff1f2; padding:2px 8px; border-radius:6px; }
+
+  .title{ padding:16px 22px 8px 22px; }
+  h1{ margin:0 0 6px 0; font-size:20px; letter-spacing:.2px; }
+  .subtitle{ color:var(--muted); }
+
+  .grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; padding:0 22px 14px 22px; }
+  .card{ border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#fff; }
+  .card h2{ margin:0; padding:10px 12px; font-size:13px; background:#f9fafb; border-bottom:1px solid var(--line); letter-spacing:.3px; color:#0f172a; }
+  .pad{ padding:10px 12px; }
+
+  table{ width:100%; border-collapse:collapse; }
+  th,td{ text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th{ white-space:nowrap; width:34%; font-weight:600; color:#0f172a; }
+
+  .badge{ display:inline-block; font-size:11px; padding:2px 8px; border-radius:999px; border:1px solid var(--line); background:#f9fafb; color:#0f172a; }
+  .badge.red{ border-color:#fecaca; background:#fff1f2; color:#991b1b; }
+  .badge.amber{ border-color:#fde68a; background:#fffbeb; color:#92400e; }
+  .badge.green{ border-color:#bbf7d0; background:#ecfdf5; color:#065f46; }
+
+  .section{ padding:0 22px 14px 22px; }
+  .section h3{ font-size:14px; margin: 10px 0 6px 0; }
+  .note{ color:var(--muted); font-size:12px; }
+
+  /* Risk matrix */
+  .matrix{ border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .matrix table th, .matrix table td{ text-align:center; }
+  .sev-low{ background:#ecfdf5; }
+  .sev-med{ background:#fffbeb; }
+  .sev-high{ background:#fee2e2; }
+
+  .signoff{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; }
+  .line{ border-bottom:1px dashed var(--line); height:28px; }
+
+  .footer{ position:absolute; left:22px; right:22px; bottom:12px; color:var(--muted); font-size:11px; display:flex; justify-content:space-between; }
+
+  .watermark{ position:absolute; inset:26% 0 auto 0; text-align:center; pointer-events:none; }
+  .watermark span{ font-weight:800; font-size:80px; letter-spacing:8px; color:#11182710; }
+
+  .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="watermark"><span>DRAFT</span></div>
+
+  <div class="header">
+    <div class="logo">
+      <div class="mark"></div>
+      <div>Quantis Semiconductor – EHS</div>
+    </div>
+    <div class="docmeta">
+      <div><strong>Document:</strong> Misfield_Safety_Report.pdf</div>
+      <div><strong>Date:</strong> Oct 5, 2025</div>
+      <div><strong>Prepared by:</strong> EHS Coordinator – J. Rivera</div>
+    </div>
+  </div>
+
+  <div class="banner">
+    <div><strong>Incident Type:</strong> Misfield / Mislabel Event (EHS)</div>
+    <div><strong>Verification Code:</strong> <span id="code" class="code"></span></div>
+  </div>
+
+  <div class="title">
+    <h1>Misfield Safety Report</h1>
+    <div class="subtitle">Area: Wet Bench WB-12 • Bay: C3 • Shift: Night • Ref: <span class="mono">EHS-CASE-2025-10-05-078</span></div>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Incident Details</h2>
+      <div class="pad">
+        <table>
+          <tr><th>Date & Time</th><td>2025-10-04 • 23:18 (Local)</td></tr>
+          <tr><th>Discovered By</th><td>C. Mendez (QA Tech)</td></tr>
+          <tr><th>Description</th><td>Container in HF (hydrofluoric) cabinet was found stored in the <em>NH₄OH</em> bin (“misfield”). Label partially obscured; secondary label mismatch.</td></tr>
+          <tr><th>Immediate Condition</th><td>No spill, no exposure; cabinet closed; eyewash & PPE available; area cordoned.</td></tr>
+          <tr><th>Involved Equipment</th><td>WB-12 wet bench, Chemical cabinet CC-07</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Initial Risk Assessment</h2>
+      <div class="pad">
+        <table>
+          <tr><th>Hazard</th><td>HF acid misfiled into alkaline cabinet (potential incompatible storage)</td></tr>
+          <tr><th>Severity</th><td><span class="badge red">High</span></td></tr>
+          <tr><th>Likelihood</th><td><span class="badge amber">Medium</span></td></tr>
+          <tr><th>Overall Risk</th><td><span class="badge red">Action Required</span></td></tr>
+          <tr><th>PPE in Use</th><td>Chem gloves, face shield, apron; HF calcium gluconate gel available</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Immediate Actions Taken</h2>
+      <div class="pad">
+        <ul style="margin:0 0 0 18px;">
+          <li>Area isolated; posted “Do Not Use” signage on CC-07.</li>
+          <li>Verified container integrity; moved to correct HF cabinet with dual verification (QA + EHS).</li>
+          <li>Captured photos and logged barcodes (<span class="mono">HF-CC07-2184</span>).</li>
+          <li>Conducted cabinet audit for remaining containers; no additional findings.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>People Involved</h2>
+      <div class="pad">
+        <table>
+          <tr><th>Reporter</th><td>C. Mendez (QA)</td></tr>
+          <tr><th>Supervisor</th><td>P. Shah (QA Supervisor)</td></tr>
+          <tr><th>EHS Lead</th><td>J. Rivera</td></tr>
+          <tr><th>Witness</th><td>E. Tran (Process)</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Risk Matrix (Qualitative)</h3>
+    <div class="matrix pad">
+      <table>
+        <thead>
+          <tr>
+            <th style="text-align:left">Severity \ Likelihood</th>
+            <th>Low</th><th>Medium</th><th>High</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Low</th>
+            <td class="sev-low">Accept</td><td class="sev-med">Monitor</td><td class="sev-med">Monitor</td>
+          </tr>
+          <tr>
+            <th>Medium</th>
+            <td class="sev-med">Monitor</td><td class="sev-med">Mitigate</td><td class="sev-high">Action</td>
+          </tr>
+          <tr>
+            <th>High</th>
+            <td class="sev-med">Mitigate</td><td class="sev-high">Action</td><td class="sev-high">Action</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="note" style="margin-top:6px;">This event rated **High/Medium → Action**.</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>5-Whys Root Cause</h3>
+    <div class="card">
+      <div class="pad">
+        <ol style="margin:0 0 0 18px;">
+          <li><strong>Why</strong> was HF in the wrong cabinet? — Placed during shift turnover without bin verification.</li>
+          <li><strong>Why</strong> no verification? — Outgoing tech skipped barcode scan due to time pressure.</li>
+          <li><strong>Why</strong> time pressure? — Late WIP surge from upstream process.</li>
+          <li><strong>Why</strong> surge caused skipping? — Handover checklist lacked “critical chem verify” step.</li>
+          <li><strong>Why</strong> checklist gap? — Procedure revision didn’t reflect new barcode workflow.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Corrective & Preventive Actions (CAPA)</h3>
+    <div class="card">
+      <div class="pad">
+        <table>
+          <tr><th style="width:42%">Action</th><th>Owner</th><th>Due</th><th>Status</th></tr>
+          <tr>
+            <td>Add “Critical Chemical Verify (scan + visual)” to shift handover checklist; require dual sign-off.</td>
+            <td>QA – P. Shah</td><td>2025-10-06</td><td><span class="badge amber">In Progress</span></td>
+          </tr>
+          <tr>
+            <td>Push scanner prompt to block storage if bin mismatch detected.</td>
+            <td>IT/Systems – D. Okafor</td><td>2025-10-10</td><td><span class="badge amber">Scheduled</span></td>
+          </tr>
+          <tr>
+            <td>Relabel CC-07 shelves with large-format acid/base icons; add secondary labels.</td>
+            <td>EHS – J. Rivera</td><td>2025-10-07</td><td><span class="badge green">Approved</span></td>
+          </tr>
+          <tr>
+            <td>Refresher training: incompatible storage & HF response (annual + ad-hoc).</td>
+            <td>EHS – M. Chen</td><td>2025-10-12</td><td><span class="badge amber">Planned</span></td>
+          </tr>
+        </table>
+        <div class="note" style="margin-top:6px;">Hold removal requires EHS verification + QA Supervisor sign-off.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Attachments & Evidence</h3>
+    <div class="card">
+      <div class="pad">
+        <ul style="margin:0 0 0 18px;">
+          <li>Photos: CC-07 cabinet shelves, container labels</li>
+          <li>Scanner logs: <span class="mono">SCAN-LOG-2025-10-04-WB12.csv</span></li>
+          <li>Training roster & sign-in sheet</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Sign-Off</h3>
+    <div class="signoff">
+      <div class="card">
+        <h2>QA Supervisor</h2>
+        <div class="pad">
+          <div class="line"></div>
+          <div class="note">Name / Signature • Date</div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>EHS Lead</h2>
+        <div class="pad">
+          <div class="line"></div>
+          <div class="note">Name / Signature • Date</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Confidential – Internal Use Only</div>
+    <div>Page 1 of 1</div>
+  </div>
+</div>
+
+<div class="no-print" style="text-align:center; margin:16px 0 40px;">
+  <button onclick="window.print()" style="padding:10px 14px; border-radius:8px; border:1px solid #d1d5db; background:#111827; color:white; cursor:pointer;">Print to PDF</button>
+</div>
+
+<script>
+  // Persistent random 4-digit code (local to the browser)
+  const KEY = "EHS_Misfield_Code";
+  let code = localStorage.getItem(KEY);
+  if(!code){
+    code = Math.floor(1000 + Math.random()*9000).toString();
+    localStorage.setItem(KEY, code);
+  }
+  document.getElementById("code").textContent = code;
+</script>
+</body>
+</html>
