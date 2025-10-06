@@ -113,40 +113,40 @@ function FileExplorer() {
         path: `${process.env.PUBLIC_URL}/sim/files/company-policy.html`,
       },
       {
-        name: "TEAM-PHOTO.pdf",
+        name: "78A_summary.pdf",
         type: "html",
         size: "1.2 MB",
         modified: "Today 3:10 PM",
-        path: `${process.env.PUBLIC_URL}/sim/files/wafer-recipe.html`,
+        path: `${process.env.PUBLIC_URL}/sim/files/summary.html`,
       },
       {
-        name: "itinerary.doc",
+        name: "QA_logs.xlsx",
         type: "html",
         suspicious: false,
         size: "4.7 KB",
         modified: "Today 9:22 AM",
-        path: `${process.env.PUBLIC_URL}/sim/files/itinerary.html`,
+        path: `${process.env.PUBLIC_URL}/sim/files/QA_log.html`,
       },
       {
-        name: "invoice.doc",
+        name: "meterology_sop.pdf",
         type: "html",
         size: "3.0 KB",
         modified: "Today 1:04 PM",
-        path: `${process.env.PUBLIC_URL}/sim/files/invoice.html`,
+        path: `${process.env.PUBLIC_URL}/sim/files/meterology_sop.html`,
       },
       {
-        name: "budget_summary.doc",
+        name: "daily_shift.xlsx",
         type: "html",
         size: "3.0 KB",
         modified: "Today 1:00 AM",
-        path: `${process.env.PUBLIC_URL}/sim/files/budget_summary.html`,
+        path: `${process.env.PUBLIC_URL}/sim/files/daily_shift.html`,
       },
       {
-        name: "bom_detailed.doc",
+        name: "misfiled_report.pdf",
         type: "html",
         size: "3.0 KB",
         modified: "Today 2:00 PM",
-        path: `${process.env.PUBLIC_URL}/sim/files/bom_detailed.html`,
+        path: `${process.env.PUBLIC_URL}/sim/files/misfiled_report.html`,
       },
     ],
     []
@@ -213,7 +213,7 @@ function FileExplorer() {
                 <div className="flex-1">
                   <div className="text-lg font-semibold">
                     {/* 🔴 Only TEAM-PHOTO.pdf is red */}
-                    <span className={f.name === "TEAM-PHOTO.pdf" ? "text-red-600" : "text-gray-900"}>
+                    <span className={f.name === "QA_logs.xlsx" ? "text-red-600" : "text-gray-900"}>
                       {f.name}
                     </span>
                     {f.suspicious && (
@@ -248,17 +248,17 @@ function MailApp() {
   const emails = [
     {
       id: 1,
-      subject: "Invoice Reminder",
-      from: "billing@vendor.com",
-      to: "employee@company.com",
-      path: `${process.env.PUBLIC_URL}/sim/files/invoice.html`,
+      subject: "Shift & Communication",
+      from: "d.okafor@company.com",
+      to: "p.shah@company.com",
+      path: `${process.env.PUBLIC_URL}/sim/files/shift_email.html`,
     },
     {
       id: 2,
-      subject: "Travel Itinerary",
+      subject: "Equipment Calibration",
       from: "noreply@airline.com",
       to: "employee@company.com",
-      path: `${process.env.PUBLIC_URL}/sim/files/itinerary.html`,
+      path: `${process.env.PUBLIC_URL}/sim/files/equipment_calibration.html`,
     },
     {
       id: 3,
@@ -276,10 +276,10 @@ function MailApp() {
     },
     {
       id: 5,
-      subject: "[Ext] RE: Monthly Data Transfer",
+      subject: "Defects",
       from: "employee@company.com",
-      to: "ared@northbridge.example",
-      path: `${process.env.PUBLIC_URL}/sim/files/email-data-transfer.html`,
+      to: "d.okafor@company.com",
+      path: `${process.env.PUBLIC_URL}/sim/files/defect_email.html`,
     },
   ];
   const [selected, setSelected] = useState(emails[0]);
@@ -299,7 +299,7 @@ function MailApp() {
             {/* 🔴 Only "Security Concern" is red */}
             <div
               className={
-                e.subject === "Security Concern"
+                ["Security Concern", "Dispose Immediately"].includes(e.subject)
                   ? "font-semibold text-red-600 text-lg"
                   : "font-semibold text-gray-900 text-lg"
               }
@@ -335,9 +335,9 @@ function BrowserApp() {
       path: `${process.env.PUBLIC_URL}/sim/files/cyber-article.html`,
     },
     {
-      id: "China",
-      title: "Tickets to Shanghai",
-      path: `${process.env.PUBLIC_URL}/sim/files/shanghai.html`,
+      id: "Confluence",
+      title: "Confluence",
+      path: `${process.env.PUBLIC_URL}/sim/files/confluence.html`,
     },
     {
       id: "Silly",
@@ -345,9 +345,9 @@ function BrowserApp() {
       path: `${process.env.PUBLIC_URL}/sim/files/silly-news.html`,
     },
     {
-      id: "hack",
-      title: "Understanding Attack Techniques",
-      path: `${process.env.PUBLIC_URL}/sim/files/hacking-techniques.html`,
+      id: "troubleshooting",
+      title: "Troubleshooting",
+      path: `${process.env.PUBLIC_URL}/sim/files/troubleshooting.html`,
     },
     {
       id: "disposal",
