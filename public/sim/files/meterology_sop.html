@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Metrology_SOP.pdf</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body {
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    background-color: #f5f6f8;
+    margin: 0;
+    padding: 0;
+    color: #1f2937;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    background: white;
+    margin: 15mm auto;
+    padding: 30px 40px;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.08);
+    position: relative;
+  }
+
+  h1 {
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+
+  .subtitle {
+    color: #6b7280;
+    font-size: 13px;
+    margin-top: 0;
+  }
+
+  .code {
+    color: #b91c1c;
+    font-weight: bold;
+    font-size: 15px;
+    border: 1px solid #fecaca;
+    background: #fef2f2;
+    border-radius: 5px;
+    padding: 2px 6px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 10px;
+  }
+
+  .section {
+    margin-top: 25px;
+  }
+
+  h2 {
+    font-size: 16px;
+    border-bottom: 1px solid #d1d5db;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  th, td {
+    border-bottom: 1px solid #e5e7eb;
+    padding: 8px;
+    text-align: left;
+    font-size: 13px;
+  }
+
+  th {
+    background-color: #f9fafb;
+    font-weight: 600;
+  }
+
+  .note {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 15px;
+    left: 40px;
+    right: 40px;
+    color: #6b7280;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; }
+    .no-print { display: none; }
+  }
+
+  button {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    background: #111827;
+    color: white;
+    cursor: pointer;
+  }
+
+  .no-print {
+    text-align: center;
+    margin: 20px 0;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="header">
+    <div>
+      <h1>Standard Operating Procedure (SOP)</h1>
+      <p class="subtitle">Department: Metrology – Semiconductor QA</p>
+    </div>
+    <div style="text-align:right;">
+      <div><strong>Document ID:</strong> MET-SOP-102</div>
+      <div><strong>Rev:</strong> 3.1</div>
+      <div><strong>Code:</strong> <span class="code" id="codeDisplay"></span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>1. Purpose</h2>
+    <p class="note">
+      To establish the standardized procedure for operating and maintaining metrology equipment (CD-SEM, Ellipsometer, and Profilometer)
+      used for line width, film thickness, and step height measurements in production wafers.
+      This SOP ensures data accuracy, repeatability, and compliance with QA specifications.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>2. Scope</h2>
+    <p class="note">
+      Applies to all QA and Process Engineering staff performing inline and post-process metrology at FAB Line 2, 200 mm wafers.
+      This includes CD-SEM-05, Ellips-02, and Prof-03 tools.
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>3. Responsibilities</h2>
+    <table>
+      <tr><th>Role</th><th>Responsibilities</th></tr>
+      <tr><td>QA Technician</td><td>Execute measurement per defined sampling plan, record data in QMS, and flag out-of-control (OOC) results.</td></tr>
+      <tr><td>Process Engineer</td><td>Review SPC trends, verify calibration results, and approve recipe changes.</td></tr>
+      <tr><td>Equipment Engineer</td><td>Perform periodic maintenance, calibration, and software verification.</td></tr>
+      <tr><td>QA Supervisor</td><td>Ensure compliance and approve any deviations or exception reports.</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>4. Procedure Overview</h2>
+    <table>
+      <tr><th>Step</th><th>Description</th><th>Frequency</th></tr>
+      <tr><td>4.1</td><td>Verify tool status and confirm calibration sticker is valid.</td><td>Before each use</td></tr>
+      <tr><td>4.2</td><td>Load sample wafer using vacuum wand; ensure chuck cleanliness.</td><td>Each run</td></tr>
+      <tr><td>4.3</td><td>Run CD measurement on 5 die locations (center + 4 corners).</td><td>Each wafer</td></tr>
+      <tr><td>4.4</td><td>Log data into QMS system under lot ID and operator ID.</td><td>Each run</td></tr>
+      <tr><td>4.5</td><td>Perform gauge repeatability and reproducibility (GR&R) check weekly.</td><td>Weekly</td></tr>
+      <tr><td>4.6</td><td>Initiate tool calibration using reference wafer (STD-REF-02).</td><td>Monthly</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>5. Acceptance Criteria</h2>
+    <table>
+      <tr><th>Parameter</th><th>Nominal</th><th>Tolerance</th><th>Action if Out of Spec</th></tr>
+      <tr><td>CD (nm)</td><td>78</td><td>±1.0</td><td>Stop tool; notify Process Eng. for recipe check.</td></tr>
+      <tr><td>Film Thickness (Å)</td><td>5200</td><td>±100</td><td>Run 2nd measurement, confirm reference wafer.</td></tr>
+      <tr><td>Step Height (µm)</td><td>1.05</td><td>±0.05</td><td>Flag lot; escalate to QA Supervisor.</td></tr>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>6. Safety & Precautions</h2>
+    <ul class="note">
+      <li>Ensure all wafers are at room temperature before loading.</li>
+      <li>Use antistatic gloves and wafer tweezers to prevent contamination.</li>
+      <li>Never touch the tool lens or chuck surface directly.</li>
+      <li>Report any vacuum or stage anomalies immediately to Equipment Engineering.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>7. Revision History</h2>
+    <table>
+      <tr><th>Rev</th><th>Date</th><th>Description</th><th>Author</th><th>Approved By</th></tr>
+      <tr><td>1.0</td><td>2022-03-12</td><td>Initial document release</td><td>R. Patel</td><td>M. Chen</td></tr>
+      <tr><td>2.0</td><td>2023-08-19</td><td>Added ellipsometer calibration steps</td><td>P. Shah</td><td>M. Chen</td></tr>
+      <tr><td>3.1</td><td>2025-09-25</td><td>Updated acceptance limits & reference wafer ID</td><td>P. Shah</td><td>K. Nguyen</td></tr>
+    </table>
+  </div>
+
+  <div class="footer">
+    <div>Confidential – Internal Use Only</div>
+    <div>Page 1 of 1</div>
+  </div>
+</div>
+
+<div class="no-print">
+  <button onclick="window.print()">Print to PDF</button>
+</div>
+
+<script>
+  // Persistent random 4-digit code stored locally
+  const CODE_KEY = "metrologySOP_Code";
+  let code = localStorage.getItem(CODE_KEY);
+
+  if (!code) {
+    code = Math.floor(1000 + Math.random() * 9000);
+    localStorage.setItem(CODE_KEY, code);
+  }
+
+  document.getElementById("codeDisplay").textContent = code;
+</script>
+</body>
+</html>
