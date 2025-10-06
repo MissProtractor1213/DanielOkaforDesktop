@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Confluence — Line 2 Troubleshooting Guide</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#f4f6f8; --panel:#ffffff; --muted:#6b7280; --line:#e6e9ef;
+    --brand:#0747a6; --accent:#0ea5e9; --danger:#b91c1c; --ok:#16a34a; --warn:#d97706;
+    --shadow: 0 6px 18px rgba(12,24,48,.08);
+  }
+  html,body{margin:0;background:var(--bg);font-family:"Segoe UI",Roboto,Arial,sans-serif;color:#0f172a;}
+  .topbar{height:56px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 18px;position:sticky;top:0;z-index:40;}
+  .logo{font-weight:700;color:var(--brand);}
+  .search{flex:1}.search input{width:100%;padding:8px 12px;border-radius:8px;border:1px solid #e6e9ef;background:#f8fafc}
+  .code-badge{font-weight:700;color:var(--danger);background:#fff1f2;border:1px solid #fecaca;padding:6px 8px;border-radius:6px}
+  .container{max-width:1200px;margin:18px auto;padding:0 12px;display:flex;gap:18px}
+  .sidebar{width:220px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;box-shadow:var(--shadow);height:calc(100vh - 120px);overflow:auto}
+  .sidebar h4{margin:6px 0 10px 0;font-size:13px;color:var(--muted)}
+  .nav a{display:block;padding:8px 10px;border-radius:6px;color:#0f172a;text-decoration:none;margin-bottom:6px;font-size:14px}
+  .nav a.active{background:#eef2ff;color:var(--brand);font-weight:700;border-left:3px solid var(--brand);padding-left:8px}
+  .main{flex:1}
+  .breadcrumbs{font-size:13px;color:var(--muted);margin-bottom:8px}
+  .page-card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px;box-shadow:var(--shadow)}
+  .page-header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+  .title{font-size:20px;margin:0;font-weight:700}
+  .meta{color:var(--muted);font-size:13px;margin-top:6px}
+  .toolbar{display:flex;gap:8px}.btn{padding:8px 12px;border-radius:8px;border:1px solid #d6dbe8;background:#fff;cursor:pointer;font-weight:600}
+  .btn.primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+  .content-wrap{display:flex;gap:18px;margin-top:14px}
+  .article{flex:1;min-width:0}
+  .toc{width:260px;background:#fbfdff;border:1px dashed var(--line);border-radius:8px;padding:12px;height:fit-content}
+  .toc h5{margin:0 0 8px 0;font-size:13px;color:var(--muted)}
+  .toc a{display:block;padding:6px 6px;color:#0f172a;text-decoration:none;font-size:13px;margin-bottom:4px}
+  .section{margin-bottom:18px}
+  .section h2{font-size:16px;margin:6px 0 10px 0}
+  .note{font-size:13px;color:#263244;background:#f1f5ff;border:1px solid #e7eefc;padding:8px 10px;border-radius:6px}
+  table{width:100%;border-collapse:collapse;margin-top:8px}
+  th,td{padding:8px 10px;border:1px solid #eef2f7;font-size:13px;text-align:left}
+  th{background:#f8fafc;font-weight:700;color:var(--muted)}
+  .chip{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;border:1px solid #e5e7eb;background:#f9fafb}
+  .chip.ok{border-color:#bbf7d0;background:#ecfdf5;color:#166534}
+  .chip.warn{border-color:#fde68a;background:#fffbeb;color:#92400e}
+  .chip.bad{border-color:#fecaca;background:#fff1f2;color:#991b1b}
+  details{border:1px solid #e6e9ef;border-radius:8px;background:#fff;margin:10px 0}
+  summary{cursor:pointer;padding:10px 12px;font-weight:700}
+  details .panel{padding:0 12px 12px 12px;border-top:1px dashed #e6e9ef}
+  pre{background:#0b1220;color:#e5e7eb;border-radius:8px;padding:10px;overflow:auto;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+  .copy{margin-top:6px}
+  .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .box{border:1px dashed #d7dce6;background:#fff;border-radius:8px;padding:10px;font-size:13px}
+  .box h4{margin:0 0 6px 0;font-size:13px}
+  .attachments{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+  .att{background:#fff;border:1px solid var(--line);padding:8px 10px;border-radius:6px;font-size:13px;display:flex;gap:8px;align-items:center;box-shadow:0 2px 6px rgba(12,24,48,.04)}
+  .footerline{margin-top:12px;color:var(--muted);font-size:13px}
+  @media(max-width:980px){.sidebar,.toc{display:none}.container{padding:12px}}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo">Quantis Confluence</div>
+    <div class="search"><input placeholder="Search Confluence…"></div>
+    <div class="code-badge" id="pageCode">Code: —</div>
+  </div>
+
+  <div class="container">
+    <aside class="sidebar">
+      <h4>Space: QA — Line 2</h4>
+      <nav class="nav">
+        <a href="#">Metrology SOPs & Run Notes</a>
+        <a href="#" class="active">Troubleshooting Guide</a>
+        <a href="#">Calibration Logs</a>
+        <a href="#">Shift Handover Tracker</a>
+        <a href="#">EHS Reports</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="page-card">
+        <div class="page-header">
+          <div>
+            <div class="breadcrumbs">Documentation &gt; Line 2 &gt; Metrology</div>
+            <h1 class="title">Troubleshooting – Line 2 Metrology & Inspection</h1>
+            <div class="meta">Last updated: <strong>Oct 5, 2025</strong> — <span class="mono">Priya Shah</span> • Watchers: 18</div>
+          </div>
+          <div class="toolbar">
+            <button class="btn">Edit</button>
+            <button class="btn">Share</button>
+            <button class="btn primary" onclick="window.print()">Export (Print/PDF)</button>
+          </div>
+        </div>
+
+        <div class="content-wrap">
+          <article class="article">
+            <div class="section">
+              <div class="note"><strong>Scope:</strong> CD-SEM-05, AOI-11, Ellips-02, Prof-03. Use the decision flow to triage, then expand the relevant symptom below.</div>
+            </div>
+
+            <div class="section" id="decision">
+              <h2>Decision Flow</h2>
+              <div class="flow">
+                <div class="box"><h4>1) Is there a safety concern?</h4>HF/NH₄OH, fumes, spill, or LOTO tags → <span class="chip bad">STOP</span> and contact EHS.</div>
+                <div class="box"><h4>2) Is the lot on hold?</h4>Check QMS tags. If yes, escalate before measurement.</div>
+                <div class="box"><h4>3) Tool status green?</h4>Verify PM/cals & interlocks. If not, call Equip Eng.</div>
+                <div class="box"><h4>4) Validate reference</h4>Run REF wafer first; compare to latest baseline.</div>
+              </div>
+            </div>
+
+            <div class="section" id="symptoms">
+              <h2>Common Symptoms (expand to view steps)</h2>
+
+              <details>
+                <summary>CD-SEM results drifting high (+0.5–1.0 nm)</summary>
+                <div class="panel">
+                  <table>
+                    <tr><th>Likely Causes</th><td>Stigmation/focus off; dirty aperture; recipe miss match; stage drift.</td></tr>
+                    <tr><th>Quick Checks</th><td>Run REF wafer (STD-REF-02 center + 4 corners). Compare μ/σ vs last baseline. Verify magnification and WD.</td></tr>
+                    <tr><th>Fix</th><td>Auto-stigmation → Re-focus → Clean aperture → Reload recipe v3.2 → Re-run REF. If Δ&gt;1.0 nm persists, escalate.</td></tr>
+                  </table>
+
+<pre id="cdsemCmd"># CD-SEM quick baseline (pseudo)
+load_wafer STD-REF-02
+set_recipe M8_TOP_v3.2
+measure center, q1, q2, q3, q4
+report --stats --export \\QA-SHARE\Metrology\CDSEM\baseline.csv</pre>
+<button class="btn copy" data-for="cdsemCmd">Copy</button>
+                </div>
+              </details>
+
+              <details>
+                <summary>AOI shows particle spike (edge-ring)</summary>
+                <div class="panel">
+                  <table>
+                    <tr><th>Likely Causes</th><td>CMP pad wear; post-etch residue; foreline particles.</td></tr>
+                    <tr><th>Quick Checks</th><td>Compare last good vs current wafer maps; inspect pad life; check RIE foreline PM schedule.</td></tr>
+                    <tr><th>Fix</th><td>Replace CMP pad → Rinse audit → AOI re-scan. If density &gt;0.20/cm² after PM, start 8D.</td></tr>
+                  </table>
+
+<pre id="aoiCmd"># AOI delta vs baseline
+aoi compare --lot W78A-024 --pre last_good --post current --zones edge,center
+aoi export --wafer-map AOI_W78A_Overview.png</pre>
+<button class="btn copy" data-for="aoiCmd">Copy</button>
+                </div>
+              </details>
+
+              <details>
+                <summary>Ellipsometer thickness drift (+40–100 Å)</summary>
+                <div class="panel">
+                  <table>
+                    <tr><th>Likely Causes</th><td>Wrong model; reference aged; angle mis-set.</td></tr>
+                    <tr><th>Quick Checks</th><td>Run ELL-REF-A twice; Δ between runs ≤ 20 Å; verify angle 70° (or recipe default).</td></tr>
+                    <tr><th>Fix</th><td>Update offset per SOP 4.6; replace/clean reference wafer; document ECN note.</td></tr>
+                  </table>
+
+<pre id="ellCmd"># Ellipsometer two-pass verification
+ell set recipe THK_5200A
+ell measure REF-A --repeat 2
+ell calc --offset --apply
+ell save \\QA-SHARE\Metrology\Ellips\2025_10_05.csv</pre>
+<button class="btn copy" data-for="ellCmd">Copy</button>
+                </div>
+              </details>
+
+              <details>
+                <summary>Profilometer step height OOT (+0.06–0.10 µm)</summary>
+                <div class="panel">
+                  <table>
+                    <tr><th>Likely Causes</th><td>Tip wear; stage tilt; wrong force setpoint.</td></tr>
+                    <tr><th>Quick Checks</th><td>Gauge blocks GB-1.00 / GB-1.10; stage planarity test; verify force.</td></tr>
+                    <tr><th>Fix</th><td>Replace stylus → Planarity routine → Re-cal. Keep lots on hold until within ±0.05 µm.</td></tr>
+                  </table>
+
+<pre id="profCmd"># Profilometer calibration
+prof lockout on
+prof planarity --auto
+prof calib --blocks GB-1.00,GB-1.10
+prof verify --block GB-1.05
+prof lockout off</pre>
+<button class="btn copy" data-for="profCmd">Copy</button>
+                </div>
+              </details>
+
+              <details>
+                <summary>Litho overlay p95 &gt; 0.035 µm (LTH-09)</summary>
+                <div class="panel">
+                  <table>
+                    <tr><th>Likely Causes</th><td>Compensation table stale; reticle pins; focus uniformity.</td></tr>
+                    <tr><th>Quick Checks</th><td>OVX/OVY trend; reticle seating; stage temp; recipe version.</td></tr>
+                    <tr><th>Fix</th><td>Deploy v3.2-h1 compensation; verify on 3-wafer DOE; escalate if p95 persists &gt; 0.035 µm.</td></tr>
+                  </table>
+
+<pre id="lithoCmd"># Litho compensation push + verify
+lth set-recipe M8_TOP_v3.2-h1
+lth run-doe --wafers 3 --metrics OVX,OVY
+lth export --spc \\QA-SHARE\Photo\LTH09\overlay_trend.csv</pre>
+<button class="btn copy" data-for="lithoCmd">Copy</button>
+                </div>
+              </details>
+            </div>
+
+            <div class="section" id="checklist">
+              <h2>Universal Checklist</h2>
+              <table>
+                <tr><th>Item</th><th>Why</th><th>Status</th></tr>
+                <tr><td>Run REF wafer first</td><td>Golden baseline for quick triage</td><td><span class="chip ok">Required</span></td></tr>
+                <tr><td>Verify tool calibration sticker</td><td>Ensures valid measurement chain</td><td><span class="chip ok">Required</span></td></tr>
+                <tr><td>Check PM/LOTO status</td><td>Prevents unsafe/invalid runs</td><td><span class="chip warn">Before each run</span></td></tr>
+                <tr><td>Document actions in QMS</td><td>Traceability & audits</td><td><span class="chip ok">Required</span></td></tr>
+              </table>
+            </div>
+
+            <div class="section" id="logs">
+              <h2>Where to Find Logs</h2>
+              <div class="attachments">
+                <div class="att"><strong>\\QA-SHARE\Metrology\CDSEM\</strong></div>
+                <div class="att"><strong>\\QA-SHARE\Metrology\Ellips\</strong></div>
+                <div class="att"><strong>\\QA-SHARE\Metrology\Profilometer\</strong></div>
+                <div class="att"><strong>\\QA-SHARE\Inspection\AOI\</strong></div>
+              </div>
+            </div>
+
+            <div class="section" id="contacts">
+              <h2>Contacts</h2>
+              <table>
+                <tr><th>Area</th><th>Name</th><th>Ext</th><th>Notes</th></tr>
+                <tr><td>QA Supervisor</td><td>Priya Shah</td><td>3117</td><td>Disposition decisions, AQL</td></tr>
+                <tr><td>Equipment Eng</td><td>R. Patel</td><td>3099</td><td>PM/foreline, hardware</td></tr>
+                <tr><td>Photo Eng</td><td>S. Park</td><td>3082</td><td>Overlay, focus comp</td></tr>
+                <tr><td>EHS</td><td>J. Rivera</td><td>3004</td><td>LOTO, chemical issues</td></tr>
+              </table>
+            </div>
+
+            <div class="section" id="history">
+              <h2>Page History</h2>
+              <div class="note">v1.0 — 2025-10-05 — Initial troubleshooting guide compiled from recent 78A findings.</div>
+            </div>
+          </article>
+
+          <aside class="toc" aria-label="table of contents">
+            <h5>In this page</h5>
+            <a href="#decision">• Decision Flow</a>
+            <a href="#symptoms">• Common Symptoms</a>
+            <a href="#checklist">• Universal Checklist</a>
+            <a href="#logs">• Logs</a>
+            <a href="#contacts">• Contacts</a>
+            <a href="#history">• Page History</a>
+          </aside>
+        </div>
+        <div class="footerline">Space home • Permissions: View • Last viewed: Oct 5, 2025</div>
+      </div>
+    </main>
+  </div>
+
+<script>
+  // Persistent 4-digit page code
+  const KEY = "troubleshooting_page_code";
+  let code = localStorage.getItem(KEY);
+  if(!code){
+    code = Math.floor(1000 + Math.random()*9000).toString();
+    localStorage.setItem(KEY, code);
+  }
+  document.getElementById('pageCode').textContent = 'Code: ' + code;
+
+  // Copy buttons for code blocks
+  document.querySelectorAll('.btn.copy').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.getAttribute('data-for');
+      const pre = document.getElementById(id);
+      const text = pre ? pre.innerText : '';
+      if(!text) return;
+      navigator.clipboard.writeText(text).then(()=>{
+        const old = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(()=>btn.textContent = old, 1200);
+      });
+    });
+  });
+</script>
+</body>
+</html>
