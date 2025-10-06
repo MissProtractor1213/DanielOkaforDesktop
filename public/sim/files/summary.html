@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>78A_summary.pdf</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --ink:#1f2937;           /* slate-800 */
+    --muted:#6b7280;         /* gray-500 */
+    --line:#e5e7eb;          /* gray-200 */
+    --brand:#0ea5e9;         /* sky-500 */
+    --accent:#10b981;        /* emerald-500 */
+    --warn:#f59e0b;          /* amber-500 */
+    --bad:#ef4444;           /* red-500 */
+    --bg:#ffffff;
+  }
+
+  @page { size: A4; margin: 22mm; }
+  @media print {
+    .no-print { display:none !important; }
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { box-shadow: none; margin: 0; }
+  }
+
+  html,body{ background:#f5f6f8; }
+  body{ font:13px/1.5 "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color:var(--ink); margin:0; }
+  .page{
+    width: 210mm; min-height: 297mm; margin: 12mm auto;
+    background: var(--bg); box-shadow: 0 4px 30px rgba(0,0,0,.06);
+    position: relative;
+    counter-reset: section;
+  }
+  .header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 22px; border-bottom:1px solid var(--line);
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px;
+  }
+  .logo-mark{
+    width:28px; height:28px; border-radius:6px; background:linear-gradient(135deg, var(--brand), #60a5fa);
+  }
+  .doc-meta{
+    text-align:right; font-size:12px; color:var(--muted);
+  }
+  .title{
+    padding: 18px 22px 10px 22px;
+  }
+  h1{
+    font-size:20px; margin:0 0 6px 0; letter-spacing:.2px;
+  }
+  .subtitle{ color:var(--muted); }
+
+  .grid{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; padding: 0 22px 8px 22px; }
+  .card{
+    border:1px solid var(--line); border-radius:10px; overflow:hidden;
+  }
+  .card h2{
+    margin:0; padding:10px 12px; font-size:13px; background:#f9fafb; border-bottom:1px solid var(--line);
+    letter-spacing:.3px; color:#111827;
+  }
+  .pad{ padding:10px 12px; }
+
+  table{ width:100%; border-collapse:collapse; }
+  th, td{ text-align:left; padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th{ font-weight:600; color:#111827; white-space:nowrap; width:36%; }
+  td.meta{ color:#374151; }
+  .kpi-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .kpi{
+    border:1px solid var(--line); border-radius:10px; padding:10px 12px; min-width:160px; flex:1;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .kpi .label{ color:var(--muted); font-size:12px; }
+  .kpi .value{ font-weight:700; font-size:16px; }
+  .kpi.good .value{ color:var(--accent); }
+  .kpi.warn .value{ color:var(--warn); }
+  .kpi.bad  .value{ color:var(--bad); }
+
+  .badge{
+    display:inline-block; font-size:11px; padding:2px 8px; border-radius:999px; border:1px solid var(--line); color:#111827; background:#f9fafb;
+  }
+  .badge.red{ border-color:#fecaca; background:#fff1f2; color:#b91c1c; }
+  .badge.amber{ border-color:#fde68a; background:#fffbeb; color:#92400e; }
+  .badge.green{ border-color:#bbf7d0; background:#ecfdf5; color:#065f46; }
+
+  .footnote{ color:var(--muted); font-size:11px; }
+
+  .actions table th, .actions table td{ padding:8px 8px; }
+  .actions table th{ background:#f9fafb; border-top:1px solid var(--line); }
+  .actions table tr:last-child td{ border-bottom:none; }
+
+  .signoff{ display:grid; grid-template-columns: 1fr 1fr; gap:14px; padding:0 22px 22px 22px; }
+  .line{ border-bottom:1px dashed var(--line); height:28px; }
+
+  .footer{
+    position:absolute; left:22px; right:22px; bottom:12px; color:var(--muted); font-size:11px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .watermark{
+    position:absolute; inset:25% 0 0 0; text-align:center; pointer-events:none;
+  }
+  .watermark span{
+    font-weight:800; font-size:80px; letter-spacing:8px; color:#11182710;
+  }
+
+  /* Simple inline sparkline style */
+  .spark{
+    width:100%; height:40px;
+  }
+
+  .section{ padding: 10px 22px 0 22px; }
+  .section h3{ font-size:14px; margin: 14px 0 6px 0; }
+  .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="watermark"><span>DRAFT</span></div>
+
+  <div class="header">
+    <div class="logo">
+      <div class="logo-mark"></div>
+      <div>Quantis Semiconductor</div>
+    </div>
+    <div class="doc-meta">
+      <div><strong>Document:</strong> 78A_summary.pdf</div>
+      <div><strong>Date:</strong> Oct 5, 2025</div>
+      <div><strong>Prepared by:</strong> Priya Shah, QA Technician</div>
+    </div>
+  </div>
+
+  <div class="title">
+    <h1>Lot 78A – Final QA Summary</h1>
+    <div class="subtitle">Product: PMIC-28LP • Node: 28 nm • Flow: Copper BEOL 8M • FAB: Line 2</div>
+  </div>
+
+  <div class="grid">
+    <!-- Lot & Process Meta -->
+    <div class="card">
+      <h2>Lot & Process Details</h2>
+      <div class="pad">
+        <table>
+          <tr><th>Lot ID</th><td class="meta mono">W78A-024</td></tr>
+          <tr><th>Work Order</th><td class="meta mono">WO-11-78A-5621</td></tr>
+          <tr><th>Wafers</th><td class="meta">25 (200 mm)</td></tr>
+          <tr><th>Start → End</th><td class="meta">2025-09-28 → 2025-10-04</td></tr>
+          <tr><th>Critical Tools</th><td class="meta">Litho LTH-09 • Etch RIE-22 • CMP CMP-07 • Metrology CD-SEM-05</td></tr>
+          <tr><th>Mask / Recipe</th><td class="meta">M8_TOP v3.2 • Photo: <span class="mono">RESIST-193i-L</span> @ 38 mJ</td></tr>
+          <tr><th>Inspection Plan</th><td class="meta">Inline AOI @ M1/M4/M8; Electrical WAT; Final Probe; Outgoing QA</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- KPI Summary -->
+    <div class="card">
+      <h2>Yield & Quality KPIs</h2>
+      <div class="pad">
+        <div class="kpi-row">
+          <div class="kpi warn">
+            <div>
+              <div class="label">Final Yield</div>
+              <div class="value">95.3%</div>
+            </div>
+            <span class="badge amber">Target ≥ 96.0%</span>
+          </div>
+          <div class="kpi good">
+            <div>
+              <div class="label">Die per Wafer (avg)</div>
+              <div class="value">1,482</div>
+            </div>
+            <span class="badge green">Spec ≥ 1,470</span>
+          </div>
+          <div class="kpi bad">
+            <div>
+              <div class="label">Defect Density</div>
+              <div class="value">0.24/cm²</div>
+            </div>
+            <span class="badge red">Spec ≤ 0.20</span>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3>Electrical Parametric (WAT) – Δ vs. Control</h3>
+          <!-- Tiny inline sparkline (SVG) -->
+          <svg class="spark" viewBox="0 0 100 20" preserveAspectRatio="none" aria-label="sparkline">
+            <polyline fill="none" stroke="#0ea5e9" stroke-width="2"
+              points="0,12 10,11 20,10 30,9 40,9 50,8 60,9 70,10 80,11 90,13 100,12" />
+            <line x1="0" y1="10" x2="100" y2="10" stroke="#9ca3af" stroke-dasharray="2,2" />
+          </svg>
+          <div class="footnote">Most parameters within ±1σ; slight drift in V<sub>th</sub> N-MOS (+0.8%).</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Defect Pareto -->
+    <div class="card">
+      <h2>Final Inspection Defect Pareto</h2>
+      <div class="pad">
+        <table>
+          <thead>
+            <tr><th>Defect Type</th><th>Count</th><th>Share</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Scratches (post-CMP)</td><td>142</td><td>32%</td><td>Cluster on wafers 07-11; CMP-07 pad near wear limit.</td></tr>
+            <tr><td>Particles (metal)</td><td>121</td><td>27%</td><td>Correlation to M8 open defects; tool RIE-22 foreline scheduled for PM.</td></tr>
+            <tr><td>CD Out-of-Spec</td><td>68</td><td>15%</td><td>CD-SEM-05 trending narrow on edge-ring; focus compensation update pending.</td></tr>
+            <tr><td>Overlay Violation</td><td>53</td><td>12%</td><td>ΔOV X on LTH-09 (0.038 µm p95); recipe v3.2 hotfix validated.</td></tr>
+            <tr><td>Resist Residue</td><td>36</td><td>8%</td><td>Strippability reduced; NMP bath life at 85% of spec.</td></tr>
+            <tr><td>Other</td><td>27</td><td>6%</td><td>Isolated; no common cause identified.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SPC Snapshot -->
+    <div class="card">
+      <h2>SPC Snapshot</h2>
+      <div class="pad">
+        <table>
+          <tr>
+            <th>Metric</th><th>Status</th><th>Trend</th><th>Comments</th>
+          </tr>
+          <tr>
+            <td>M8 Line Width (nm)</td>
+            <td><span class="badge amber">Alert</span></td>
+            <td>
+              <svg class="spark" viewBox="0 0 100 20" preserveAspectRatio="none">
+                <polyline fill="none" stroke="#f59e0b" stroke-width="2"
+                  points="0,8 10,9 20,10 30,11 40,12 50,13 60,13 70,14 80,14 90,15 100,16" />
+                <line x1="0" y1="12" x2="100" y2="12" stroke="#9ca3af" stroke-dasharray="2,2" />
+              </svg>
+            </td>
+            <td>Mean drifting ↑ 0.9 nm over run; still within UCL. Recipe hotfix queued.</td>
+          </tr>
+          <tr>
+            <td>Overlay X/Y (µm)</td>
+            <td><span class="badge red">Action</span></td>
+            <td>
+              <svg class="spark" viewBox="0 0 100 20" preserveAspectRatio="none">
+                <polyline fill="none" stroke="#ef4444" stroke-width="2"
+                  points="0,14 10,13 20,13 30,12 40,12 50,13 60,14 70,16 80,17 90,17 100,18" />
+                <line x1="0" y1="16" x2="100" y2="16" stroke="#9ca3af" stroke-dasharray="2,2" />
+              </svg>
+            </td>
+            <td>p95 exceeds 0.035 µm on LTH-09; reticle alignment pins inspected.</td>
+          </tr>
+          <tr>
+            <td>Defect Density (cm²)</td>
+            <td><span class="badge amber">Alert</span></td>
+            <td>
+              <svg class="spark" viewBox="0 0 100 20" preserveAspectRatio="none">
+                <polyline fill="none" stroke="#f59e0b" stroke-width="2"
+                  points="0,10 10,10 20,11 30,10 40,10 50,11 60,12 70,12 80,11 90,12 100,12" />
+                <line x1="0" y1="10" x2="100" y2="10" stroke="#9ca3af" stroke-dasharray="2,2" />
+              </svg>
+            </td>
+            <td>Transient spike correlated with CMP-07 pad wear.</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Narrative & Disposition -->
+  <div class="section">
+    <h3>Summary & Disposition</h3>
+    <div class="card">
+      <div class="pad">
+        <p>
+          Lot <span class="mono">W78A-024</span> completed final QA with <strong>95.3% yield</strong> (target ≥ 96.0%).
+          The primary yield detractors are <em>post-CMP scratches</em> and <em>metal particles</em> driving M8 opens.
+          SPC shows mild drift on M8 CD and an actionable overlay excursion on LTH-09.
+        </p>
+        <p>
+          <strong>Disposition:</strong> <span class="badge amber">Conditional Release</span> with hold on wafers
+          <span class="mono">07-11</span> pending re-polish risk assessment and enhanced outgoing sampling (AQL tightened).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions -->
+  <div class="section actions">
+    <h3>Containment & Corrective Actions</h3>
+    <div class="card">
+      <table>
+        <tr>
+          <th style="width:38%">Action</th>
+          <th>Owner</th>
+          <th>Due</th>
+          <th>Status</th>
+        </tr>
+        <tr>
+          <td>Replace CMP-07 pad & recalibrate downforce; verify scratch signature reduction on monitor wafer.</td>
+          <td>Fab Eng. – K. Nguyen</td>
+          <td>2025-10-06</td>
+          <td><span class="badge amber">In Progress</span></td>
+        </tr>
+        <tr>
+          <td>RIE-22 foreline PM and particle baseline; add post-etch megasonic rinse check.</td>
+          <td>Maintenance – R. Patel</td>
+          <td>2025-10-07</td>
+          <td><span class="badge amber">Scheduled</span></td>
+        </tr>
+        <tr>
+          <td>Update LTH-09 focus/overlay compensation (recipe v3.2-h1), run 3-wafer DOEs to validate.</td>
+          <td>Photo Eng. – S. Park</td>
+          <td>2025-10-06</td>
+          <td><span class="badge green">Approved</span></td>
+        </tr>
+        <tr>
+          <td>Tighten outgoing QA sampling to AQL 0.25 for M8 opens; add edge-ring focus audit.</td>
+          <td>QA – P. Shah</td>
+          <td>2025-10-05</td>
+          <td><span class="badge amber">In Progress</span></td>
+        </tr>
+      </table>
+      <div class="pad footnote">Note: Any hold release requires QA sign-off after verifying corrective-action effectiveness.</div>
+    </div>
+  </div>
+
+  <!-- Sign-off -->
+  <div class="section">
+    <h3>Sign-Off</h3>
+    <div class="signoff">
+      <div class="card">
+        <h2>QA</h2>
+        <div class="pad">
+          <div class="line"></div>
+          <div class="footnote">Name / Signature • Date</div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Manufacturing</h2>
+        <div class="pad">
+          <div class="line"></div>
+          <div class="footnote">Name / Signature • Date</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Confidential – Internal Use Only</div>
+    <div>Page 1 of 1</div>
+  </div>
+</div>
+
+<!-- Helper to export -->
+<div class="no-print" style="text-align:center; margin:16px 0 40px;">
+  <button onclick="window.print()" style="padding:10px 14px; border-radius:8px; border:1px solid #d1d5db; background:#111827; color:white; cursor:pointer;">
+    Print to PDF
+  </button>
+</div>
+</body>
+</html>
