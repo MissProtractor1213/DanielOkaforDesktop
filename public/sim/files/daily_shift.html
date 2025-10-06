@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Daily_Shift_Handover.xlsx</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root{
+    --bg:#ffffff; --grid:#e5e7eb; --ink:#0f172a; --muted:#64748b;
+    --xl-green:#16a34a; --xl-yellow:#d97706; --xl-red:#dc2626; --xl-blue:#2563eb;
+    --xl-gray:#f8fafc; --xl-header:#f1f5f9;
+  }
+  html,body{ background:#f3f4f6; margin:0; font:13px/1.45 "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color:var(--ink); }
+  .app{ width: min(1200px, 96%); margin: 20px auto; background:var(--bg); border:1px solid #d1d5db; border-radius:12px; overflow:hidden; box-shadow:0 8px 30px rgba(15,23,42,.08); }
+
+  /* Fake Excel titlebar */
+  .titlebar{ background:linear-gradient(90deg,#0ea5e9,#60a5fa); color:#fff; padding:10px 14px; display:flex; align-items:center; justify-content:space-between; }
+  .titlebar .left{ font-weight:700; letter-spacing:.2px; }
+  .titlebar .right{ font-size:12px; opacity:.95; }
+
+  /* Toolbar */
+  .toolbar{ display:flex; gap:10px; padding:10px; border-bottom:1px solid #dbe3ea; background:#f8fafc; position:sticky; top:0; z-index:3; }
+  .btn{
+    padding:8px 10px; border:1px solid #cbd5e1; border-radius:8px; background:#fff; cursor:pointer; font-weight:600;
+  }
+  .btn:active{ transform:translateY(1px); }
+  .btn.primary{ background:#111827; color:#fff; border-color:#111827; }
+  .spacer{ flex:1; }
+
+  /* Sheet wrapper */
+  .sheetwrap{ padding:12px; }
+  .sheet{
+    border:1px solid #cbd5e1; border-radius:8px; overflow:auto; background:white;
+  }
+
+  /* Fake Excel header row (frozen) */
+  table{ width:100%; border-collapse:separate; border-spacing:0; min-width:1000px; }
+  thead th{
+    position:sticky; top:0; z-index:2;
+    background:var(--xl-header); border-bottom:2px solid #cbd5e1; font-weight:700; text-align:left; padding:8px;
+  }
+  th, td{ border-right:1px solid var(--grid); }
+  th:last-child, td:last-child{ border-right:none; }
+  tbody td{
+    border-bottom:1px solid var(--grid); padding:6px 8px; vertical-align:top; font-feature-settings:"tnum";
+  }
+  tbody tr:nth-child(even){ background:var(--xl-gray); }
+
+  /* Cell look */
+  .cell{ min-width:80px; }
+  .cell input[type="text"], .cell input[type="datetime-local"], .cell input[type="date"], .cell textarea, .cell select{
+    width:100%; border:1px solid #e5e7eb; border-radius:6px; padding:6px 8px; font:inherit; background:#fff;
+  }
+  .cell textarea{ min-height:44px; resize:vertical; }
+  .chip{ display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; border:1px solid #e5e7eb; background:#f9fafb; }
+  .chip.ok{ border-color:#bbf7d0; background:#ecfdf5; color:#166534; }
+  .chip.warn{ border-color:#fde68a; background:#fffbeb; color:#92400e; }
+  .chip.block{ border-color:#fecaca; background:#fef2f2; color:#991b1b; }
+
+  /* Footer */
+  .footer{ display:flex; justify-content:space-between; align-items:center; padding:10px 12px; color:var(--muted); border-top:1px solid #e5e7eb; background:#fafafa; }
+
+  /* Tabs */
+  .tabs{ display:flex; gap:6px; padding:8px 10px; background:#f8fafc; border-top:1px solid #e5e7eb; }
+  .tab{ padding:6px 10px; background:#fff; border:1px solid #cbd5e1; border-radius:8px; cursor:pointer; font-weight:600; }
+  .tab.active{ background:#e0f2fe; border-color:#38bdf8; color:#075985; }
+
+  @media print{
+    body{ background:white; }
+    .titlebar, .toolbar, .tabs{ display:none; }
+    .app{ border:none; box-shadow:none; }
+    .sheet{ overflow:visible; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="titlebar">
+    <div class="left">Daily Shift Handover – QA (Semiconductor)</div>
+    <div class="right">Workbook: Daily_Shift_Handover.xlsx</div>
+  </div>
+
+  <div class="toolbar">
+    <button class="btn primary" onclick="addRow()">+ Add Row</button>
+    <button class="btn" onclick="exportCSV()">Export CSV</button>
+    <button class="btn" onclick="window.print()">Print (PDF)</button>
+    <div class="spacer"></div>
+    <div style="color:#475569;font-weight:600;">Date:</div>
+    <input id="sheetDate" type="date" style="border:1px solid #cbd5e1;border-radius:6px;padding:6px 8px;">
+    <div style="color:#475569;font-weight:600;margin-left:10px;">Shift:</div>
+    <select id="sheetShift" style="border:1px solid #cbd5e1;border-radius:6px;padding:6px 8px;">
+      <option>Day</option><option>Swing</option><option>Night</option>
+    </select>
+  </div>
+
+  <div class="sheetwrap">
+    <div class="sheet">
+      <table id="handoverTable">
+        <thead>
+          <tr>
+            <th style="width:130px">Timestamp</th>
+            <th style="width:120px">Outgoing Tech</th>
+            <th style="width:120px">Incoming Tech</th>
+            <th style="width:120px">Area/Tool</th>
+            <th style="width:150px">WIP Lots</th>
+            <th style="width:220px">Issues / OOS / Holds</th>
+            <th style="width:220px">Actions / Follow-ups</th>
+            <th style="width:120px">Priority</th>
+            <th style="width:110px">Status</th>
+            <th style="width:140px">Sign-off</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <!-- Sample starter rows -->
+          <tr>
+            <td class="cell"><input type="datetime-local" value=""></td>
+            <td class="cell"><input type="text" placeholder="e.g., P. Shah"></td>
+            <td class="cell"><input type="text" placeholder="e.g., C. Mendez"></td>
+            <td class="cell">
+              <select>
+                <option>CD-SEM-05</option><option>AOI-11</option><option>CMP-07</option><option>LTH-09</option><option>WAT-02</option>
+              </select>
+            </td>
+            <td class="cell"><input type="text" placeholder="W78A-024, W78B-003"></td>
+            <td class="cell"><textarea placeholder="AOI density ↑ on edge-ring; CMP scratches on wafers 07–11."></textarea></td>
+            <td class="cell"><textarea placeholder="Replace CMP pad; schedule PM on RIE foreline; tighten AQL to 0.25."></textarea></td>
+            <td class="cell">
+              <select>
+                <option>Normal</option><option>High</option><option>Critical</option>
+              </select>
+            </td>
+            <td class="cell">
+              <select>
+                <option>Open</option><option>In Progress</option><option>Blocked</option><option>Closed</option>
+              </select>
+            </td>
+            <td class="cell"><input type="text" placeholder="Initials"></td>
+          </tr>
+
+          <tr>
+            <td class="cell"><input type="datetime-local"></td>
+            <td class="cell"><input type="text" placeholder="e.g., D. Okafor"></td>
+            <td class="cell"><input type="text" placeholder="e.g., E. Tran"></td>
+            <td class="cell">
+              <select>
+                <option>Ellips-02</option><option>Prof-03</option><option>CD-SEM-05</option><option>AOI-11</option>
+              </select>
+            </td>
+            <td class="cell"><input type="text" placeholder="W78A-025"></td>
+            <td class="cell"><textarea placeholder="Ellips. thickness drift +80 Å; confirm ref wafer."></textarea></td>
+            <td class="cell"><textarea placeholder="Run verification on STD-REF-02; log GR&R sample."></textarea></td>
+            <td class="cell">
+              <select>
+                <option>Normal</option><option>High</option><option>Critical</option>
+              </select>
+            </td>
+            <td class="cell">
+              <select>
+                <option>Open</option><option>In Progress</option><option>Blocked</option><option>Closed</option>
+              </select>
+            </td>
+            <td class="cell"><input type="text" placeholder="Initials"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Tip: Use “Export CSV” to share with supervisors or attach to your QA summary.</div>
+    <div id="rowCount">2 rows</div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active">Handover</div>
+    <div class="tab">Action Tracker</div>
+    <div class="tab">Contacts</div>
+  </div>
+</div>
+
+<script>
+  // Autofill date
+  const d = new Date();
+  const iso = d.toISOString().slice(0,10);
+  document.getElementById('sheetDate').value = iso;
+
+  function addRow(){
+    const tbody = document.getElementById('tbody');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td class="cell"><input type="datetime-local"></td>
+      <td class="cell"><input type="text" placeholder="Outgoing"></td>
+      <td class="cell"><input type="text" placeholder="Incoming"></td>
+      <td class="cell">
+        <select>
+          <option>CD-SEM-05</option><option>AOI-11</option><option>CMP-07</option><option>LTH-09</option><option>WAT-02</option>
+          <option>Ellips-02</option><option>Prof-03</option>
+        </select>
+      </td>
+      <td class="cell"><input type="text" placeholder="Lot IDs"></td>
+      <td class="cell"><textarea placeholder="Issues / OOS / Holds"></textarea></td>
+      <td class="cell"><textarea placeholder="Actions / Follow-ups"></textarea></td>
+      <td class="cell">
+        <select><option>Normal</option><option>High</option><option>Critical</option></select>
+      </td>
+      <td class="cell">
+        <select><option>Open</option><option>In Progress</option><option>Blocked</option><option>Closed</option></select>
+      </td>
+      <td class="cell"><input type="text" placeholder="Initials"></td>
+    `;
+    tbody.appendChild(tr);
+    updateRowCount();
+  }
+
+  function updateRowCount(){
+    const n = document.querySelectorAll('#tbody tr').length;
+    document.getElementById('rowCount').textContent = `${n} row${n>1?'s':''}`;
+  }
+  updateRowCount();
+
+  // Export table to CSV
+  function exportCSV(){
+    const table = document.getElementById('handoverTable');
+    let csv = [];
+    for (const row of table.rows){
+      let cells = [];
+      for (const cell of row.cells){
+        // Prefer input/select/textarea values if present
+        const input = cell.querySelector('input, textarea, select');
+        let val = input ? (input.tagName === 'SELECT' ? input.value : input.value) : cell.textContent;
+        val = (val || '').toString().replace(/"/g,'""');
+        cells.push(`"${val}"`);
+      }
+      csv.push(cells.join(','));
+    }
+    const blob = new Blob([csv.join('\n')], {type:'text/csv;charset=utf-8;'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `Daily_Shift_Handover_${document.getElementById('sheetDate').value || 'sheet'}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+</script>
+</body>
+</html>
