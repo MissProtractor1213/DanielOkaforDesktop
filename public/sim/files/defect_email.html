@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Re: Defect Alert – Lot 78A / Line 2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body{font-family:"Segoe UI",Tahoma,sans-serif;background:#f5f6f8;margin:0;padding:40px 0;color:#1f2937;}
+  .email{background:#fff;width:min(800px,90%);margin:0 auto;border:1px solid #e5e7eb;border-radius:8px;box-shadow:0 6px 20px rgba(0,0,0,.05);}
+  .header{background:#f9fafb;border-bottom:1px solid #e5e7eb;padding:14px 22px;}
+  .header p{margin:2px 0;font-size:13px;}
+  .subject{font-size:16px;font-weight:700;margin-bottom:8px;}
+  .content{padding:22px;font-size:14px;line-height:1.6;}
+  .footer{border-top:1px solid #e5e7eb;background:#f9fafb;padding:10px 22px;font-size:12px;color:#6b7280;display:flex;justify-content:space-between;}
+  .signature{margin-top:18px;border-top:1px solid #e5e7eb;padding-top:10px;font-size:13px;}
+  .code{font-weight:700;color:#b91c1c;background:#fef2f2;border:1px solid #fecaca;border-radius:4px;padding:2px 6px;}
+  .chip{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;border:1px solid #e5e7eb;background:#f9fafb;}
+  .chip.ok{border-color:#bbf7d0;background:#ecfdf5;color:#166534;}
+  .chip.warn{border-color:#fde68a;background:#fffbeb;color:#92400e;}
+  .chip.fail{border-color:#fecaca;background:#fff1f2;color:#991b1b;}
+  table{border-collapse:collapse;width:100%;margin:10px 0;}
+  th,td{border-bottom:1px solid #e5e7eb;text-align:left;padding:6px 8px;font-size:13px;}
+  th{background:#f9fafb;font-weight:600;}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  /* tiny inline bar chart */
+  .bars{width:100%;height:18px}
+</style>
+</head>
+<body>
+<div class="email">
+  <div class="header">
+    <div class="subject">Re: Defect Alert – Lot 78A / Line 2 (AOI + Final Test)</div>
+    <p><strong>From:</strong> <a href="mailto:p.shah@quantissemi.com">Priya Shah</a> (QA Supervisor)</p>
+    <p><strong>To:</strong> <a href="mailto:photo-eng@quantissemi.com">Photo Eng</a>; <a href="mailto:cmp-eng@quantissemi.com">CMP Eng</a>; <a href="mailto:line2-qa@quantissemi.com">Line 2 QA</a></p>
+    <p><strong>Cc:</strong> <a href="mailto:ehs@quantissemi.com">EHS</a>; <a href="mailto:maint@quantissemi.com">Maintenance</a></p>
+    <p><strong>Date:</strong> Sun, Oct 5, 2025 • 08:12 AM</p>
+    <p><strong>Verification Code:</strong> <span id="codeDisplay" class="code"></span></p>
+  </div>
+
+  <div class="content">
+    <p>Team,</p>
+    <p>AOI and final test show a <strong>defect uptick</strong> on <span class="mono">Lot W78A-024</span> affecting wafers <strong>07–11</strong>. Summary below.</p>
+
+    <h3 style="margin-bottom:6px;">Top Defects (Pareto)</h3>
+    <table>
+      <tr><th>Defect</th><th>Count</th><th>Share</th><th>Notes</th></tr>
+      <tr>
+        <td>Post-CMP Scratches</td>
+        <td>142</td>
+        <td>
+          <svg class="bars" viewBox="0 0 100 18"><rect x="0" y="2" width="32" height="14" fill="#ef4444"/></svg>
+          32%
+        </td>
+        <td>Clustered on wafers 07–11; CMP-07 pad near wear limit.</td>
+      </tr>
+      <tr>
+        <td>Metal Particles</td>
+        <td>121</td>
+        <td>
+          <svg class="bars" viewBox="0 0 100 18"><rect x="0" y="2" width="27" height="14" fill="#f59e0b"/></svg>
+          27%
+        </td>
+        <td>Correlated with M8 opens; RIE-22 foreline PM scheduled.</td>
+      </tr>
+      <tr>
+        <td>CD Out-of-Spec</td>
+        <td>68</td>
+        <td>
+          <svg class="bars" viewBox="0 0 100 18"><rect x="0" y="2" width="15" height="14" fill="#2563eb"/></svg>
+          15%
+        </td>
+        <td>Edge-ring narrowing; focus compensation update pending.</td>
+      </tr>
+    </table>
+
+    <h3 style="margin-bottom:6px;">Impact</h3>
+    <ul>
+      <li><strong>Final Yield:</strong> 95.3% (<span class="chip warn">Target ≥ 96.0%</span>)</li>
+      <li><strong>Defect Density:</strong> 0.24/cm² (<span class="chip fail">Above spec</span>)</li>
+      <li><strong>Outgoing QA:</strong> Sampling tightened to <span class="mono">AQL 0.25</span> for M8 opens.</li>
+    </ul>
+
+    <h3 style="margin-bottom:6px;">Immediate Containment</h3>
+    <ol>
+      <li>Hold wafers <strong>07–11</strong> in QA rack, tag <span class="mono">HOLD-W78A-EDGE</span>.</li>
+      <li>Replace <strong>CMP-07</strong> pad; verify micro-scratch signature on monitor wafer.</li>
+      <li>Run AOI re-scan post-PM; compare to pre-PM baseline.</li>
+      <li>Push litho <strong>LTH-09</strong> focus/overlay hotfix (<span class="mono">v3.2-h1</span>) on next lot.</li>
+    </ol>
+
+    <h3 style="margin-bottom:6px;">Requests / Owners</h3>
+    <table>
+      <tr><th>Task</th><th>Owner</th><th>Due</th><th>Status</th></tr>
+      <tr><td>RIE-22 foreline PM + particle baseline</td><td>Maintenance – R. Patel</td><td>Today 12:00</td><td><span class="chip warn">Scheduled</span></td></tr>
+      <tr><td>CMP-07 pad change + downforce calibration</td><td>CMP Eng – K. Nguyen</td><td>Today 10:30</td><td><span class="chip warn">In Progress</span></td></tr>
+      <tr><td>LTH-09 recipe update (focus/overlay compensation)</td><td>Photo Eng – S. Park</td><td>Today 11:15</td><td><span class="chip ok">Approved</span></td></tr>
+      <tr><td>Outgoing AQL tighten + edge-ring audit</td><td>QA – P. Shah</td><td>Today 09:30</td><td><span class="chip warn">Open</span></td></tr>
+    </table>
+
+    <p>Please reply-all with completion timestamps and attach evidence (screenshots or CSV). If post-PM AOI still shows >0.20/cm², initiate an <strong>8D</strong> with CMP & Photo leads.</p>
+
+    <p>Thanks,<br>Priya</p>
+
+    <div class="signature">
+      <strong>Priya Shah</strong><br>
+      QA Supervisor – Quantis Semiconductor<br>
+      Ext: 3117 | Email: <a href="mailto:p.shah@quantissemi.com">p.shah@quantissemi.com</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Internal Email – Quantis Semiconductor QA</div>
+    <div>Confidential • Defect Notification</div>
+  </div>
+</div>
+
+<script>
+  // Persistent 4-digit verification code for continuity
+  const CODE_KEY = "defectsEmail_Code";
+  let code = localStorage.getItem(CODE_KEY);
+  if(!code){
+    code = Math.floor(1000 + Math.random()*9000).toString();
+    localStorage.setItem(CODE_KEY, code);
+  }
+  document.getElementById("codeDisplay").textContent = code;
+</script>
+</body>
+</html>
