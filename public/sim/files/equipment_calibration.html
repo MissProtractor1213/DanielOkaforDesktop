@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Re: Equipment Calibration – Line 2 Metrology</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family:"Segoe UI", Tahoma, sans-serif; background:#f5f6f8; margin:0; padding:40px 0; color:#1f2937; }
+  .email { background:#fff; width:min(800px,90%); margin:0 auto; border:1px solid #e5e7eb; border-radius:8px; box-shadow:0 6px 20px rgba(0,0,0,.05); }
+  .header { background:#f9fafb; border-bottom:1px solid #e5e7eb; padding:14px 22px; }
+  .header p { margin:2px 0; font-size:13px; }
+  .subject { font-size:16px; font-weight:700; margin-bottom:8px; }
+  .content { padding:22px; font-size:14px; line-height:1.6; }
+  .footer { border-top:1px solid #e5e7eb; background:#f9fafb; padding:10px 22px; font-size:12px; color:#6b7280; display:flex; justify-content:space-between; }
+  .signature { margin-top:18px; border-top:1px solid #e5e7eb; padding-top:10px; font-size:13px; }
+  .code { font-weight:700; color:#b91c1c; background:#fef2f2; border:1px solid #fecaca; border-radius:4px; padding:2px 6px; }
+  .chip { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; border:1px solid #e5e7eb; background:#f9fafb; }
+  .chip.ok{ border-color:#bbf7d0; background:#ecfdf5; color:#166534; }
+  .chip.warn{ border-color:#fde68a; background:#fffbeb; color:#92400e; }
+  .chip.fail{ border-color:#fecaca; background:#fff1f2; color:#991b1b; }
+  .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+  @media print { body{background:#fff;} }
+</style>
+</head>
+<body>
+<div class="email">
+  <div class="header">
+    <div class="subject">Re: Equipment Calibration – Line 2 Metrology (CD-SEM-05, Ellips-02, Prof-03)</div>
+    <p><strong>From:</strong> <a href="mailto:p.shah@quantissemi.com">Priya Shah</a> (QA Supervisor)</p>
+    <p><strong>To:</strong> <a href="mailto:c.mendez@quantissemi.com">Carlos Mendez</a>; <a href="mailto:e.tran@quantissemi.com">Emily Tran</a>; <a href="mailto:d.okafor@quantissemi.com">Daniel Okafor</a></p>
+    <p><strong>Cc:</strong> <a href="mailto:j.rivera@quantissemi.com">J. Rivera (EHS)</a>; <a href="mailto:maint@quantissemi.com">Maintenance</a></p>
+    <p><strong>Date:</strong> Sun, Oct 5, 2025 • 07:45 AM</p>
+    <p><strong>Verification Code:</strong> <span id="codeDisplay" class="code"></span></p>
+  </div>
+
+  <div class="content">
+    <p>Team,</p>
+    <p>Below is the status and plan for our <strong>Line 2 metrology calibration</strong>. Please complete items before releasing any affected lots.</p>
+
+    <h3 style="margin-bottom:6px;">Calibration Status</h3>
+    <ul>
+      <li><strong>CD-SEM-05</strong> — <span class="chip ok">In Tolerance</span><br>
+        <span class="mono">STD-REF-02</span> verified (center + 4 corners). Mean 78.0&nbsp;nm, σ=0.38&nbsp;nm. Next due: <strong>2025-11-05</strong>.
+      </li>
+      <li><strong>Ellips-02</strong> — <span class="chip warn">Drift Observed</span><br>
+        Film thickness +60&nbsp;Å vs nominal 5200&nbsp;Å. Run monthly calibration with <span class="mono">ELL-REF-A</span> and update offset.
+      </li>
+      <li><strong>Prof-03</strong> — <span class="chip fail">Out of Tolerance</span><br>
+        Step height bias +0.07&nbsp;µm (nominal 1.05&nbsp;µm ±0.05). Lockout applied until calibration complete.
+      </li>
+    </ul>
+
+    <h3 style="margin-bottom:6px;">Action Items (Today)</h3>
+    <ol>
+      <li><strong>Prof-03</strong>: Perform full stage planarity + gauge block calibration. Use blocks <span class="mono">GB-1.00</span> and <span class="mono">GB-1.10</span>.
+        Log results in QMS: <span class="mono">QMS/Metrology/Prof03/2025-10-05.csv</span>. Owner: <em>C. Mendez</em>. Due: <strong>10:30</strong>.
+      </li>
+      <li><strong>Ellips-02</strong>: Run <em>two</em> consecutive measurements on <span class="mono">ELL-REF-A</span>; if Δ&gt;40&nbsp;Å persist, apply tool offset and annotate recipe v2.4-h.
+        Owner: <em>E. Tran</em>. Due: <strong>11:00</strong>.
+      </li>
+      <li><strong>CD-SEM-05</strong>: Weekly <span class="mono">GR&amp;R</span> (3 ops × 10 repeats). Upload summary plot to the share and attach to the QA report.
+        Owner: <em>D. Okafor</em>. Due: <strong>End of shift</strong>.
+      </li>
+      <li><strong>Release Criteria</strong>: No lots exit hold until Prof-03 returns within spec and Ellips-02 offset is documented (ECN note).
+      </li>
+    </ol>
+
+    <h3 style="margin-bottom:6px;">Documentation & Links</h3>
+    <ul>
+      <li>SOP: <span class="mono">MET-SOP-102 (Rev 3.1)</span> — Section 4.6 Calibration & weekly GR&amp;R.</li>
+      <li>Shared folder: <span class="mono">\\QA-SHARE\Metrology\Cal\2025_10_05\</span></li>
+      <li>Lockout tag for Prof-03: <span class="mono">LOTO-PROF03-1005</span></li>
+    </ul>
+
+    <p>Please reply-all once your task is complete. If any instrument remains OOT after calibration, escalate to Equipment Eng. and keep lots in <strong>QA hold</strong>.</p>
+
+    <p>Thanks,<br>Priya</p>
+
+    <div class="signature">
+      <strong>Priya Shah</strong><br>
+      QA Supervisor – Quantis Semiconductor<br>
+      Ext: 3117 | Email: <a href="mailto:p.shah@quantissemi.com">p.shah@quantissemi.com</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>Internal Email – Quantis Semiconductor QA</div>
+    <div>Confidential • Calibration & Release Planning</div>
+  </div>
+</div>
+
+<script>
+  // Persistent 4-digit verification code (stored locally)
+  const CODE_KEY = "equipCalEmail_Code";
+  let code = localStorage.getItem(CODE_KEY);
+  if (!code) {
+    code = Math.floor(1000 + Math.random() * 9000).toString();
+    localStorage.setItem(CODE_KEY, code);
+  }
+  document.getElementById("codeDisplay").textContent = code;
+</script>
+</body>
+</html>
