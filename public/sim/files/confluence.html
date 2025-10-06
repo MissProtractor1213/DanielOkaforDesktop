@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Confluence — Line 2 Metrology: SOPs & Run Notes</title>
+<style>
+  :root{
+    --bg:#f4f6f8; --panel:#ffffff; --muted:#6b7280; --line:#e6e9ef;
+    --brand:#0747a6; --accent:#0ea5e9; --danger:#b91c1c;
+    --shadow: 0 6px 18px rgba(12, 24, 48, 0.08);
+  }
+  html,body{ height:100%; margin:0; font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background:var(--bg); color:#0f172a; }
+  .topbar{ height:56px; background:#fff; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:12px; padding:0 18px; box-shadow: 0 1px 0 rgba(15,23,42,0.04); position:sticky; top:0; z-index:40; }
+  .logo{ display:flex; align-items:center; gap:10px; font-weight:700; color:var(--brand); }
+  .search{ margin-left:10px; flex:1; }
+  .search input{ width:100%; padding:8px 12px; border-radius:8px; border:1px solid #e6e9ef; background:#f8fafc; }
+  .top-actions{ display:flex; gap:8px; align-items:center; }
+  .code-badge{ font-weight:700; color:var(--danger); background:#fff1f2; border:1px solid #fecaca; padding:6px 8px; border-radius:6px; }
+
+  .container{ display:flex; gap:18px; max-width:1200px; margin:18px auto; padding:0 12px; }
+  .sidebar{ width:220px; background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:12px; box-shadow:var(--shadow); height:calc(100vh - 120px); overflow:auto; }
+  .sidebar h4{ margin:6px 0 10px 0; font-size:13px; color:var(--muted); }
+  .nav a{ display:block; padding:8px 10px; border-radius:6px; color:#0f172a; text-decoration:none; margin-bottom:6px; font-size:14px; }
+  .nav a.active{ background:#eef2ff; color:var(--brand); font-weight:700; border-left:3px solid var(--brand); padding-left:8px; }
+  .nav small{ color:var(--muted); }
+
+  .main{ flex:1; }
+  .breadcrumbs{ font-size:13px; color:var(--muted); margin-bottom:8px; }
+  .page-card{ background:var(--panel); border:1px solid var(--line); border-radius:8px; padding:18px; box-shadow:var(--shadow); }
+  .page-header{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+  .title{ font-size:20px; font-weight:700; margin:0; }
+  .meta{ color:var(--muted); font-size:13px; margin-top:6px; }
+  .toolbar{ display:flex; gap:8px; align-items:center; margin-left:auto; }
+  .btn{ padding:8px 12px; border-radius:8px; border:1px solid #d6dbe8; background:#fff; cursor:pointer; font-weight:600; }
+  .btn.primary{ background:var(--brand); color:#fff; border-color:var(--brand); }
+  .btn.ghost{ background:transparent; }
+
+  .content-wrap{ display:flex; gap:18px; margin-top:14px; }
+  .article{ flex:1; min-width:0; }
+  .toc{ width:260px; background:#fbfdff; border:1px dashed var(--line); border-radius:8px; padding:12px; height:fit-content; }
+  .toc h5{ margin:0 0 8px 0; font-size:13px; color:var(--muted); }
+  .toc a{ display:block; padding:6px 6px; color:#0f172a; text-decoration:none; font-size:13px; margin-bottom:4px; }
+  .section{ margin-bottom:18px; }
+  .section h2{ font-size:16px; margin:6px 0 10px 0; }
+  .section p{ color:#263244; line-height:1.5; margin:0 0 8px 0; }
+  .highlight{ background:#f1f5ff; padding:8px 10px; border-radius:6px; border:1px solid #e7eefc; color:#082567; font-size:13px; }
+
+  table{ width:100%; border-collapse:collapse; margin-top:8px; }
+  th,td{ padding:8px 10px; border:1px solid #eef2f7; font-size:13px; text-align:left; }
+  th{ background:#f8fafc; font-weight:700; color:var(--muted); }
+
+  .attachments{ display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+  .att{ background:#fff; border:1px solid var(--line); padding:8px 10px; border-radius:6px; font-size:13px; display:flex; gap:8px; align-items:center; box-shadow:0 2px 6px rgba(12,24,48,0.04); }
+  .comment-box{ margin-top:8px; border-top:1px dashed var(--line); padding-top:12px; }
+  .comment{ border-left:3px solid #eef2f7; padding:10px 12px; margin-bottom:8px; background:#fff; border-radius:6px; }
+  .rev-history{ margin-top:12px; font-size:13px; color:var(--muted); }
+
+  /* small responsive */
+  @media (max-width:980px){
+    .container{ padding:12px; }
+    .sidebar{ display:none; }
+    .toc{ display:none; }
+  }
+</style>
+</head>
+<body>
+  <div class="topbar" role="navigation" aria-label="topbar">
+    <div class="logo">Quantis Confluence</div>
+    <div class="search"><input placeholder="Search Confluence..." aria-label="search"></div>
+    <div class="top-actions">
+      <div style="font-size:13px;color:var(--muted)">Welcome, <strong>Natalie</strong></div>
+      <div class="code-badge" id="pageCode">Code: —</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <aside class="sidebar" aria-label="sidebar">
+      <h4>Space: QA — Line 2</h4>
+      <nav class="nav" aria-label="sidebar navigation">
+        <a class="active" href="#">Metrology SOPs & Run Notes</a>
+        <a href="#">Calibration Logs</a>
+        <a href="#">Shift Handover Tracker</a>
+        <a href="#">Equipment PM</a>
+        <a href="#">EHS Reports</a>
+        <small style="display:block;margin-top:12px;color:var(--muted)">Recent pages</small>
+        <a href="#" style="font-size:13px;color:var(--muted)">– 78A_summary</a>
+        <a href="#" style="font-size:13px;color:var(--muted)">– Misfield_Safety_Report</a>
+      </nav>
+    </aside>
+
+    <main class="main" role="main">
+      <div class="page-card" role="article" aria-labelledby="pageTitle">
+        <div class="page-header">
+          <div style="min-width:0">
+            <div class="breadcrumbs">Documentation &gt; Line 2 &gt; Metrology</div>
+            <h1 id="pageTitle" class="title">Metrology SOPs & Run Notes</h1>
+            <div class="meta">Last updated: <strong>Oct 5, 2025</strong> — <span class="mono">Priya Shah</span> • Watchers: 14</div>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div class="toolbar" role="toolbar" aria-label="page tools">
+              <button class="btn" title="Edit (fake)">Edit</button>
+              <button class="btn">Share</button>
+              <button class="btn ghost" id="watchBtn">Watch</button>
+              <button class="btn primary" id="createBtn">Create</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-wrap">
+          <article class="article">
+            <div class="section">
+              <h2>Overview</h2>
+              <p>This page collects the <strong>Metrology SOP</strong> (MET-SOP-102), daily run notes, and links to calibration logs for Line 2 (200mm). Use this as the single source of truth for CD-SEM, Ellipsometer and Profilometer operations.</p>
+              <div class="highlight">SOP Version: <strong>3.1</strong> — last revised: <strong>2025-09-25</strong></div>
+            </div>
+
+            <div class="section" id="sops">
+              <h2>Quick Links</h2>
+              <table>
+                <thead><tr><th>Document</th><th>Type</th><th>Owner</th><th>Link</th></tr></thead>
+                <tbody>
+                  <tr><td>MET-SOP-102</td><td>SOP</td><td>Priya Shah</td><td><a href="#">Open (HTML)</a></td></tr>
+                  <tr><td>CD-SEM Daily Calibration Log</td><td>Log</td><td>D. Okafor</td><td><a href="#">Open (CSV)</a></td></tr>
+                  <tr><td>Ellipsometer Monthly Cal</td><td>Log</td><td>E. Tran</td><td><a href="#">Open (PDF)</a></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="section" id="run-notes">
+              <h2>Run Notes — Oct 4–5, 2025</h2>
+              <p><strong>Lot W78A-024</strong> — Final QA summary: yield 95.3%. Primary yield detractors: post-CMP scratches (cluster wafers 07–11) and metal particle opens on M8. See <a href="#">78A_summary.pdf</a> for full details.</p>
+
+              <h3>Actions taken</h3>
+              <ul>
+                <li>CMP-07 pad replacement scheduled and underway (owner: K. Nguyen).</li>
+                <li>RIE-22 foreline PM scheduled to remove particle source (owner: R. Patel).</li>
+                <li>Outgoing QA sampling tightened to AQL 0.25 for M8 opens.</li>
+              </ul>
+            </div>
+
+            <div class="section" id="procedures">
+              <h2>Procedures & Acceptance Criteria</h2>
+              <p>Key acceptance limits:</p>
+              <table>
+                <tr><th>Parameter</th><th>Nominal</th><th>Tolerance</th></tr>
+                <tr><td>CD (nm)</td><td>78</td><td>±1.0</td></tr>
+                <tr><td>Film Thickness (Å)</td><td>5200</td><td>±100</td></tr>
+                <tr><td>Step Height (µm)</td><td>1.05</td><td>±0.05</td></tr>
+              </table>
+            </div>
+
+            <div class="section" id="attachments">
+              <h2>Attachments</h2>
+              <div class="attachments" aria-live="polite">
+                <div class="att"><strong>MET-SOP-102.pdf</strong> • 320 KB</div>
+                <div class="att"><strong>78A_summary.pdf</strong> • 160 KB</div>
+                <div class="att"><strong>AOI_W78A_Overview.png</strong> • 78 KB</div>
+              </div>
+            </div>
+
+            <div class="section" id="comments">
+              <h2>Comments</h2>
+
+              <div class="comment" aria-label="comment by Carlos">
+                <div style="font-weight:700;">Carlos Mendez <span style="font-size:12px;color:var(--muted)">• Oct 5, 2025 06:21</span></div>
+                <div style="margin-top:6px;">Posted AOI baseline images to attachments. Wafers 07–11 isolated on QA rack. CMP pad replacement in progress.</div>
+              </div>
+
+              <div class="comment" aria-label="comment by Priya">
+                <div style="font-weight:700;">Priya Shah <span style="font-size:12px;color:var(--muted)">• Oct 5, 2025 08:05</span></div>
+                <div style="margin-top:6px;">Thanks — please confirm post-PM AOI results in this thread. If >0.20/cm², escalate to CMP & Photo for 8D.</div>
+              </div>
+
+              <div class="comment-box">
+                <div style="font-size:13px;color:var(--muted);margin-bottom:6px;">Add a comment</div>
+                <textarea id="commentText" style="width:100%;min-height:72px;padding:10px;border:1px solid var(--line);border-radius:8px;"></textarea>
+                <div style="margin-top:8px;display:flex;gap:8px;align-items:center;">
+                  <button class="btn primary" onclick="postComment()">Post</button>
+                  <div style="color:var(--muted);font-size:13px;">You are posting as <strong>Natalie Nguyen</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="section rev-history" id="revisions">
+              <h2>Page History</h2>
+              <div>v3.1 — 2025-09-25 — <em>Priya Shah</em> — Updated acceptance limits & reference wafer ID</div>
+              <div>v2.0 — 2023-08-19 — <em>P. Shah</em> — Added ellipsometer calibration steps</div>
+              <div>v1.0 — 2022-03-12 — <em>R. Patel</em> — Initial release</div>
+            </div>
+          </article>
+
+          <aside class="toc" aria-label="table of contents">
+            <h5>In this page</h5>
+            <a href="#sops">• Quick Links</a>
+            <a href="#run-notes">• Run Notes</a>
+            <a href="#procedures">• Procedures</a>
+            <a href="#attachments">• Attachments</a>
+            <a href="#comments">• Comments</a>
+            <a href="#revisions">• Page History</a>
+          </aside>
+        </div>
+      </div>
+
+      <!-- small footer -->
+      <div style="margin-top:12px;color:var(--muted);font-size:13px;">Space home • Permissions: View • Last viewed: Oct 5, 2025</div>
+    </main>
+  </div>
+
+<script>
+  // Persistent 4-digit page code for traceability
+  const PAGE_KEY = "confluence_fake_page_code";
+  let code = localStorage.getItem(PAGE_KEY);
+  if (!code) {
+    code = Math.floor(1000 + Math.random()*9000).toString();
+    localStorage.setItem(PAGE_KEY, code);
+  }
+  document.getElementById('pageCode').textContent = 'Code: ' + code;
+
+  // Simple watch toggle
+  const watchBtn = document.getElementById('watchBtn');
+  let watched = false;
+  watchBtn.addEventListener('click', () => {
+    watched = !watched;
+    watchBtn.textContent = watched ? 'Watching' : 'Watch';
+    watchBtn.style.background = watched ? '#eef2ff' : 'transparent';
+  });
+
+  // Post comment (client-side only)
+  function postComment(){
+    const txt = document.getElementById('commentText');
+    const v = txt.value.trim();
+    if(!v) return alert('Enter a comment first');
+    const container = document.querySelector('#comments .comment-box');
+    const div = document.createElement('div');
+    div.className = 'comment';
+    const now = new Date();
+    const ts = now.toLocaleString();
+    div.innerHTML = '<div style="font-weight:700;">Natalie Nguyen <span style="font-size:12px;color:var(--muted)">• ' + ts + '</span></div><div style="margin-top:6px;">' + escapeHtml(v) + '</div>';
+    container.parentNode.insertBefore(div, container);
+    txt.value = '';
+  }
+
+  // small helper to escape HTML
+  function escapeHtml(s){ return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;'); }
+
+  // Fake create button -> opens modal-ish (just an alert for simulation)
+  document.getElementById('createBtn').addEventListener('click', ()=> {
+    alert('Create page modal (simulated).');
+  });
+</script>
+</body>
+</html>
